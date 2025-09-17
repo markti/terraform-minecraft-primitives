@@ -96,7 +96,7 @@ module "wall_north" {
 ```hcl
 module "tunnel" {
   source         = "markti/primitives/minecraft//modules/square-frame"
-  version        = "1.0.2"
+  version        = "1.0.4"
 
   material       = "minecraft:stone"
   start_position = { 
@@ -117,7 +117,7 @@ module "tunnel" {
 ```hcl
 module "tunnel" {
   source         = "markti/primitives/minecraft//modules/tube"
-  version        = "1.0.2"
+  version        = "1.0.4"
 
   material       = "minecraft:stone"
   start_position = { 
