@@ -7,6 +7,7 @@ It includes three building blocks:
 - [`cuboid`](./modules/cuboid) – place a 3D rectangular block (cuboid)
 - [`position`](./modules/position) – calculate translated coordinates for modular builds
 - ['square-frame](./modules/square-frame) - place a square frame of blocks to create a tunnel or tower depending on the direction
+- ['tube'](./modules/tube) - place a circular ring of blocks to create a tunnel or tower depending on the direction
 
 These primitives can be combined to create larger, more complex structures (pillars, walls, towers, or even entire buildings) without needing to manually calculate block coordinates.
 
@@ -90,7 +91,7 @@ module "wall_north" {
 }
 ```
 
-### Square-Frame (Tunnel / Tower)
+### Square-Frame (Square Tunnel / Square Tower)
 
 ```hcl
 module "tunnel" {
@@ -106,6 +107,26 @@ module "tunnel" {
   direction      = "north"
   width          = 5
   height         = 5
+  depth          = 10
+
+}
+```
+
+### Tube (Circular Tunnel / Circular Tower)
+
+```hcl
+module "tunnel" {
+  source         = "markti/primitives/minecraft//modules/tube"
+  version        = "1.0.2"
+
+  material       = "minecraft:stone"
+  start_position = { 
+    x = -30, 
+    y = 66, 
+    z = -230 
+  }
+  direction      = "up"
+  diameter       = 6
   depth          = 10
 
 }
