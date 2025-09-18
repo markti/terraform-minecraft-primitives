@@ -8,6 +8,7 @@ It includes three building blocks:
 - [`position`](./modules/position) – calculate translated coordinates for modular builds
 - ['square-frame](./modules/square-frame) - place a square frame of blocks to create a tunnel or tower depending on the direction
 - ['tube'](./modules/tube) - place a circular ring of blocks to create a tunnel or tower depending on the direction
+- ['stairs'](./modules/stairs) - place a set of stairs, either ascending or descending in any direction
 
 These primitives can be combined to create larger, more complex structures (pillars, walls, towers, or even entire buildings) without needing to manually calculate block coordinates.
 

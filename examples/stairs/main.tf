@@ -2,20 +2,21 @@
 locals {
   start_position = {
     x = -24
-    y = 69
-    z = -244
+    y = 65
+    z = -238
   }
 }
 
-module "up" {
-  source = "../../modules/tube"
+module "stairs" {
+  source = "../../modules/stairs"
 
   count = 1
 
   start_position = local.start_position
   material       = "stone"
   direction      = "east"
-  diameter       = 6
-  depth          = 10
+  width          = 4
+  height         = 10
+  vertical       = "descending"
 
 }
