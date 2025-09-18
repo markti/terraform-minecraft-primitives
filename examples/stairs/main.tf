@@ -17,6 +17,29 @@ module "stairs" {
   direction      = "east"
   width          = 4
   height         = 10
-  vertical       = "descending"
+  vertical       = "ascending"
+
+}
+
+module "stair_pos" {
+  source         = "../../modules/position"
+  start_position = local.start_position
+  translate_vector = {
+    x = -1
+    y = 0
+    z = 0
+  }
+}
+
+module "first_tread" {
+  source = "../../modules/stair-tread"
+
+  material                 = "stone_stairs"
+  direction                = "east"
+  width                    = 4
+  start_position           = module.stair_pos.result
+  enable_start_left_corner = true
+  enable_end_right_corner  = true
+  corner_shape_swap        = false
 
 }
