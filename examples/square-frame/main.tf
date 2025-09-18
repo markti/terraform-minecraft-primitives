@@ -17,6 +17,6 @@ module "up" {
   direction      = "east"
   width          = 5
   height         = 5
-  depth          = 10
+  depth          = 100
 
 }

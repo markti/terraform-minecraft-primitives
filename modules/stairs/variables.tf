@@ -48,3 +48,18 @@ variable "vertical" {
   }
 }
 
+variable "taper" {
+  type        = bool
+  description = "If true, each step shrinks by 1 until it reaches min_final_width."
+  default     = false
+}
+
+variable "min_final_width" {
+  type        = number
+  description = "Smallest tread width when tapering (1 or 2)."
+  default     = 2
+  validation {
+    condition     = contains([1, 2], var.min_final_width) && var.min_final_width <= var.width
+    error_message = "min_final_width must be 1 or 2 and ≤ width."
+  }
+}

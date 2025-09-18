@@ -3,7 +3,7 @@ locals {
   start_position = {
     x = -24
     y = 65
-    z = -238
+    z = -236
   }
 }
 
@@ -15,9 +15,10 @@ module "stairs" {
   start_position = local.start_position
   material       = "stone"
   direction      = "east"
-  width          = 4
+  width          = 6
   height         = 10
   vertical       = "ascending"
+  taper          = false
 
 }
 

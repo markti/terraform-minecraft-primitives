@@ -27,26 +27,49 @@ locals {
   half_width_left = floor(var.width / 2)
 }
 
-# Build each tread as a perpendicular vector line.
-# Step i is i blocks higher (y+i) and i blocks 'back' along the run direction.
-module "step" {
-  for_each = { for i in range(var.height) : tostring(i) => i }
-  source   = "../vector" # <-- update to your actual path
+locals {
+  vstep = var.vertical == "descending" ? -1 : 1
 
-  material = var.material
-  direction = (
-    # Draw the tread across the width in the "right" direction
-    # (length = var.width; start is pre-shifted left when centering)
-    # If you want the width to extend left instead, swap right_vec with left_vec here.
+  # draw across the perpendicular (to run) axis
+  width_direction = (
     local.right_vec.x == 1 ? "east" :
     local.right_vec.x == -1 ? "west" :
     local.right_vec.z == 1 ? "south" : "north"
   )
-  length = var.width
+
+  # how many steps until we first hit the minimum width (include that step)
+  taper_steps = ceil((var.width - var.min_final_width) / 2) + 1
+
+  # final count of steps to build
+  effective_steps = var.taper ? min(var.height, local.taper_steps) : var.height
+
+  # per-step specs for for_each (string keys)
+  step_specs = {
+    for i in range(local.effective_steps) :
+    tostring(i) => {
+      idx = i
+      # remove 1 from each side -> shrink by 2 per step; clamp to min at the last step
+      len = var.taper ? max(var.min_final_width, var.width - 2 * i) : var.width
+      # center tread: shift start LEFT by floor(len/2), then draw 'len' to the RIGHT
+      shift = floor((var.taper ? max(var.min_final_width, var.width - 2 * i) : var.width) / 2)
+    }
+  }
+}
+
+
+# Build each tread as a perpendicular vector line.
+# Step i is i blocks higher (y+i) and i blocks 'back' along the run direction.
+module "step" {
+  for_each = local.step_specs
+  source   = "../vector" # <-- your vector module path
+
+  material  = var.material
+  direction = local.width_direction
+  length    = each.value.len
 
   start_position = {
-    x = var.start_position.x + local.run_vec.x * each.value
-    y = var.start_position.y + each.value
-    z = var.start_position.z + local.run_vec.z * each.value
+    x = var.start_position.x + local.run_vec.x * each.value.idx + local.left_vec.x * each.value.shift
+    y = var.start_position.y + local.vstep * each.value.idx
+    z = var.start_position.z + local.run_vec.z * each.value.idx + local.left_vec.z * each.value.shift
   }
 }
