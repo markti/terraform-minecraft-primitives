@@ -57,7 +57,7 @@ module "frame_top" {
 
   # map sizes into cuboid's (width, depth, height) per direction
   height = 1
-  width  = var.depth
+  width  = var.width
   depth  = contains(["north", "south"], var.direction) ? var.width : contains(["east", "west"], var.direction) ? var.width : var.width
 }
 
@@ -69,7 +69,7 @@ module "frame_bottom" {
   start_position = local.c00
 
   height = 1
-  width  = var.depth
+  width  = var.width
   depth  = contains(["north", "south"], var.direction) ? var.width : contains(["east", "west"], var.direction) ? var.width : var.width
 }
 
@@ -80,7 +80,7 @@ module "frame_left" {
   direction      = var.direction
   start_position = local.c00
 
-  width  = var.depth
+  width  = var.width
   depth  = 1
   height = var.height
 }
@@ -92,7 +92,7 @@ module "frame_right" {
   direction      = var.direction
   start_position = local.cW0
 
-  width  = var.depth
+  width  = var.width
   depth  = 1
   height = var.height
 }
