@@ -159,3 +159,49 @@ module "tube_south" {
   depth     = 5
 
 }
+
+module "v_red_south_bottom" {
+  source = "../../modules/vector"
+
+  material       = "minecraft:red_wool"
+  length         = 5
+  direction      = "south"
+  start_position = module.tube_south.end_position.bottom
+  transform = {
+    x = 0
+    y = 0
+    z = 1
+  }
+}
+
+module "tube_south_east" {
+  source = "../../modules/tube"
+
+  start_position = module.v_red_south_bottom.end_position
+  transform = {
+    x = 1
+    y = 3
+    z = 0
+  }
+  material  = "stone"
+  direction = "east"
+  diameter  = 6
+  depth     = 5
+
+}
+
+module "tube_south_west" {
+  source = "../../modules/tube"
+
+  start_position = module.v_red_south_bottom.end_position
+  transform = {
+    x = -1
+    y = 3
+    z = 0
+  }
+  material  = "stone"
+  direction = "west"
+  diameter  = 6
+  depth     = 5
+
+}
