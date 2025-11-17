@@ -186,7 +186,7 @@ module "tube_south_east" {
   material  = "stone"
   direction = "east"
   diameter  = 6
-  depth     = 5
+  depth     = 3
 
 }
 
@@ -202,6 +202,6 @@ module "tube_south_west" {
   material  = "stone"
   direction = "west"
   diameter  = 6
-  depth     = 5
+  depth     = 3
 
 }

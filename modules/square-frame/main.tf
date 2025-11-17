@@ -1,9 +1,19 @@
+module "transformed_start_position" {
+  source = "../position"
+
+  start_position   = var.start_position
+  translate_vector = var.transform
+}
+
 # Map which physical axes are the cross-section for each direction.
 # - primary = axis the frame runs along (length = depth)
 # - cx = first perpendicular axis used by width
 # - cy = second perpendicular axis used by height
 # Signs are chosen so increasing width/height goes outward in + direction.
 locals {
+
+  start_position = module.transformed_start_position.result
+
   axis_map = {
     north = { primary = { axis = "z", sign = -1 }, cx = { axis = "x", sign = 1 }, cy = { axis = "y", sign = 1 } }
     south = { primary = { axis = "z", sign = 1 }, cx = { axis = "x", sign = 1 }, cy = { axis = "y", sign = 1 } }
@@ -27,13 +37,11 @@ locals {
     z = (local.a.cy.axis == "z" ? local.a.cy.sign * (var.height - 1) : 0)
   }
 
-  base = var.start_position
-
   # Four cross-section corners (where our long sides start)
-  c00 = local.base
-  cW0 = { x = local.base.x + local.off_w.x, y = local.base.y + local.off_w.y, z = local.base.z + local.off_w.z }
-  c0H = { x = local.base.x + local.off_h.x, y = local.base.y + local.off_h.y, z = local.base.z + local.off_h.z }
-  cWH = { x = local.base.x + local.off_w.x + local.off_h.x, y = local.base.y + local.off_w.y + local.off_h.y, z = local.base.z + local.off_w.z + local.off_h.z }
+  c00 = local.start_position
+  cW0 = { x = local.start_position.x + local.off_w.x, y = local.start_position.y + local.off_w.y, z = local.start_position.z + local.off_w.z }
+  c0H = { x = local.start_position.x + local.off_h.x, y = local.start_position.y + local.off_h.y, z = local.start_position.z + local.off_h.z }
+  cWH = { x = local.start_position.x + local.off_w.x + local.off_h.x, y = local.start_position.y + local.off_w.y + local.off_h.y, z = local.start_position.z + local.off_w.z + local.off_h.z }
 }
 
 # Each side is a thin CUBOID running along 'direction' for length = depth.

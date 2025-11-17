@@ -124,3 +124,32 @@ module "v_red_south" {
     z = 1
   }
 }
+
+
+module "v_cyan_north" {
+  source = "../../modules/vector"
+
+  material       = "minecraft:cyan_wool"
+  length         = 3
+  direction      = "north"
+  start_position = module.v_pink.end_position
+  transform = {
+    x = 0
+    y = 0
+    z = -1
+  }
+}
+
+module "v_cyan_south" {
+  source = "../../modules/vector"
+
+  material       = "minecraft:cyan_wool"
+  length         = 3
+  direction      = "south"
+  start_position = module.v_pink.end_position
+  transform = {
+    x = 0
+    y = 0
+    z = 1
+  }
+}
