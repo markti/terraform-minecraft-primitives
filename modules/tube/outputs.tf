@@ -16,5 +16,12 @@ output "end_position" {
     left   = local.end_left
     right  = local.end_right
     center = local.end_center
+    all = {
+      top    = local.end_top,
+      bottom = local.end_bottom,
+      left   = local.end_left,
+      right  = local.end_right,
+      center = local.end_center
+    }
   }
 }

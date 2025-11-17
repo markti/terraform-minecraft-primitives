@@ -42,6 +42,176 @@ locals {
   cW0 = { x = local.start_position.x + local.off_w.x, y = local.start_position.y + local.off_w.y, z = local.start_position.z + local.off_w.z }
   c0H = { x = local.start_position.x + local.off_h.x, y = local.start_position.y + local.off_h.y, z = local.start_position.z + local.off_h.z }
   cWH = { x = local.start_position.x + local.off_w.x + local.off_h.x, y = local.start_position.y + local.off_w.y + local.off_h.y, z = local.start_position.z + local.off_w.z + local.off_h.z }
+
+
+  ##################################################################
+  # Centers on the start face (square cross-section)
+  ##################################################################
+
+  # Half offsets (geometric midpoints)
+  half_off_w = {
+    x = local.off_w.x / 2.0
+    y = local.off_w.y / 2.0
+    z = local.off_w.z / 2.0
+  }
+  half_off_h = {
+    x = local.off_h.x / 2.0
+    y = local.off_h.y / 2.0
+    z = local.off_h.z / 2.0
+  }
+
+  # Side centers on the start face
+  center_bottom = { # between c00 and cW0
+    x = local.c00.x + local.half_off_w.x
+    y = local.c00.y + local.half_off_w.y
+    z = local.c00.z + local.half_off_w.z
+  }
+
+  center_top = { # between c0H and cWH
+    x = local.c0H.x + local.half_off_w.x
+    y = local.c0H.y + local.half_off_w.y
+    z = local.c0H.z + local.half_off_w.z
+  }
+
+  center_left = { # between c00 and c0H
+    x = local.c00.x + local.half_off_h.x
+    y = local.c00.y + local.half_off_h.y
+    z = local.c00.z + local.half_off_h.z
+  }
+
+  center_right = { # between cW0 and cWH
+    x = local.cW0.x + local.half_off_h.x
+    y = local.cW0.y + local.half_off_h.y
+    z = local.cW0.z + local.half_off_h.z
+  }
+
+  # Center-center of the square (midpoint of both axes)
+  center_center = {
+    x = local.start_position.x + local.half_off_w.x + local.half_off_h.x
+    y = local.start_position.y + local.half_off_w.y + local.half_off_h.y
+    z = local.start_position.z + local.half_off_w.z + local.half_off_h.z
+  }
+  # how far to move from start face to end face
+  primary_offset = {
+    x = (local.a.primary.axis == "x" ? local.a.primary.sign * (var.length - 1) : 0)
+    y = (local.a.primary.axis == "y" ? local.a.primary.sign * (var.length - 1) : 0)
+    z = (local.a.primary.axis == "z" ? local.a.primary.sign * (var.length - 1) : 0)
+  }
+
+  # end face corners (start corners + primary extrusion)
+  e00 = {
+    x = local.c00.x + local.primary_offset.x
+    y = local.c00.y + local.primary_offset.y
+    z = local.c00.z + local.primary_offset.z
+  }
+  eW0 = {
+    x = local.cW0.x + local.primary_offset.x
+    y = local.cW0.y + local.primary_offset.y
+    z = local.cW0.z + local.primary_offset.z
+  }
+  e0H = {
+    x = local.c0H.x + local.primary_offset.x
+    y = local.c0H.y + local.primary_offset.y
+    z = local.c0H.z + local.primary_offset.z
+  }
+  eWH = {
+    x = local.cWH.x + local.primary_offset.x
+    y = local.cWH.y + local.primary_offset.y
+    z = local.cWH.z + local.primary_offset.z
+  }
+
+  # end-face side centers
+  end_center_bottom = {
+    x = local.e00.x + local.half_off_w.x
+    y = local.e00.y + local.half_off_w.y
+    z = local.e00.z + local.half_off_w.z
+  }
+  end_center_top = {
+    x = local.e0H.x + local.half_off_w.x
+    y = local.e0H.y + local.half_off_w.y
+    z = local.e0H.z + local.half_off_w.z
+  }
+  end_center_left = {
+    x = local.e00.x + local.half_off_h.x
+    y = local.e00.y + local.half_off_h.y
+    z = local.e00.z + local.half_off_h.z
+  }
+  end_center_right = {
+    x = local.eW0.x + local.half_off_h.x
+    y = local.eW0.y + local.half_off_h.y
+    z = local.eW0.z + local.half_off_h.z
+  }
+
+  # end center-center
+  end_center_center = {
+    x = local.e00.x + local.half_off_w.x + local.half_off_h.x
+    y = local.e00.y + local.half_off_w.y + local.half_off_h.y
+    z = local.e00.z + local.half_off_w.z + local.half_off_h.z
+  }
+
+  # ─────────────────────────────────────────────────────────────
+  # MIDPOINT ALONG SHAFT
+  # ─────────────────────────────────────────────────────────────
+
+  # scalar mid distance from start (geometric midpoint)
+  mid_t = (var.length - 1) / 2.0
+
+  mid_primary_offset = {
+    x = (local.a.primary.axis == "x" ? local.a.primary.sign * local.mid_t : 0)
+    y = (local.a.primary.axis == "y" ? local.a.primary.sign * local.mid_t : 0)
+    z = (local.a.primary.axis == "z" ? local.a.primary.sign * local.mid_t : 0)
+  }
+
+  # mid-face corners (start corners + mid offset)
+  m00 = {
+    x = local.c00.x + local.mid_primary_offset.x
+    y = local.c00.y + local.mid_primary_offset.y
+    z = local.c00.z + local.mid_primary_offset.z
+  }
+  mW0 = {
+    x = local.m00.x + local.off_w.x
+    y = local.m00.y + local.off_w.y
+    z = local.m00.z + local.off_w.z
+  }
+  m0H = {
+    x = local.m00.x + local.off_h.x
+    y = local.m00.y + local.off_h.y
+    z = local.m00.z + local.off_h.z
+  }
+  mWH = {
+    x = local.m00.x + local.off_w.x + local.off_h.x
+    y = local.m00.y + local.off_w.y + local.off_h.y
+    z = local.m00.z + local.off_w.z + local.off_h.z
+  }
+
+  # mid-face side centers
+  mid_center_bottom = {
+    x = local.m00.x + local.half_off_w.x
+    y = local.m00.y + local.half_off_w.y
+    z = local.m00.z + local.half_off_w.z
+  }
+  mid_center_top = {
+    x = local.m0H.x + local.half_off_w.x
+    y = local.m0H.y + local.half_off_w.y
+    z = local.m0H.z + local.half_off_w.z
+  }
+  mid_center_left = {
+    x = local.m00.x + local.half_off_h.x
+    y = local.m00.y + local.half_off_h.y
+    z = local.m00.z + local.half_off_h.z
+  }
+  mid_center_right = {
+    x = local.mW0.x + local.half_off_h.x
+    y = local.mW0.y + local.half_off_h.y
+    z = local.mW0.z + local.half_off_h.z
+  }
+
+  # mid-face center-center
+  mid_center_center = {
+    x = local.m00.x + local.half_off_w.x + local.half_off_h.x
+    y = local.m00.y + local.half_off_w.y + local.half_off_h.y
+    z = local.m00.z + local.half_off_w.z + local.half_off_h.z
+  }
 }
 
 # Each side is a thin CUBOID running along 'direction' for length = depth.

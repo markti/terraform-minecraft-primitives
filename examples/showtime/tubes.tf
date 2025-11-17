@@ -14,6 +14,22 @@ module "tube_north" {
 
 }
 
+module "v_tube_red_north" {
+  source = "../../modules/vector"
+
+  for_each = module.tube_north.end_position.all
+
+  material       = "minecraft:red_wool"
+  length         = 3
+  direction      = "north"
+  start_position = each.value
+  transform = {
+    x = 0
+    y = 0
+    z = -1
+  }
+}
+/*
 module "v_red_north_bottom" {
   source = "../../modules/vector"
 
@@ -27,6 +43,7 @@ module "v_red_north_bottom" {
     z = -1
   }
 }
+
 module "v_red_north_top" {
   source = "../../modules/vector"
 
@@ -66,6 +83,7 @@ module "v_red_north_right" {
     z = -1
   }
 }
+
 module "v_red_north_center" {
   source = "../../modules/vector"
 
@@ -79,11 +97,12 @@ module "v_red_north_center" {
     z = -1
   }
 }
+*/
 
 module "tube_north2" {
   source = "../../modules/tube"
 
-  start_position = module.v_red_north_center.end_position
+  start_position = module.v_tube_red_north["center"].end_position
   transform = {
     x = 0
     y = 0
