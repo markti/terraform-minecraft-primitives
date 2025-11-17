@@ -226,17 +226,21 @@ locals {
 #   depth (X)                 = either var.width or 1
 #   height (Z)                = either var.height or 1
 
-# ── Top side (thickness = 1 on cy axis) ─────────────────────────────────────
+# ── Top side (thickness = 1 on cy axis at +height-1) ────────────────────────
 module "frame_top" {
   source         = "../cuboid"
   material       = var.material
   direction      = var.direction
-  start_position = local.c0H # at +height-1 on cy
+  start_position = local.c0H # top edge: +height-1 along cy
 
-  # map sizes into cuboid's (width, depth, height) per direction
+  # Along shaft
+  width = var.length # along primary axis
+
+  # Across the opening (cx axis)
+  depth = var.width # full width of frame
+
+  # Thickness of the top edge (1 block on cy axis)
   height = 1
-  width  = var.width
-  depth  = contains(["north", "south"], var.direction) ? var.width : contains(["east", "west"], var.direction) ? var.width : var.width
 }
 
 # ── Bottom side (thickness = 1 on cy axis at base) ──────────────────────────
@@ -244,11 +248,11 @@ module "frame_bottom" {
   source         = "../cuboid"
   material       = var.material
   direction      = var.direction
-  start_position = local.c00
+  start_position = local.c00 # bottom edge
 
+  width  = var.length
+  depth  = var.width
   height = 1
-  width  = var.width
-  depth  = contains(["north", "south"], var.direction) ? var.width : contains(["east", "west"], var.direction) ? var.width : var.width
 }
 
 # ── Left side (thickness = 1 on cx axis at base) ────────────────────────────
@@ -256,10 +260,15 @@ module "frame_left" {
   source         = "../cuboid"
   material       = var.material
   direction      = var.direction
-  start_position = local.c00
+  start_position = local.c00 # left edge
 
-  width  = var.width
-  depth  = 1
+  # Along shaft
+  width = var.length
+
+  # Thickness on cx axis (1 block wide)
+  depth = 1
+
+  # Full vertical span on cy axis
   height = var.height
 }
 
@@ -268,9 +277,9 @@ module "frame_right" {
   source         = "../cuboid"
   material       = var.material
   direction      = var.direction
-  start_position = local.cW0
+  start_position = local.cW0 # right edge: +width-1 along cx
 
-  width  = var.width
+  width  = var.length
   depth  = 1
   height = var.height
 }
