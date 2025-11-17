@@ -1,4 +1,12 @@
+module "transformed_start_position" {
+  source = "../position"
+
+  start_position   = var.start_position
+  translate_vector = var.transform
+}
+
 locals {
+  start_position = module.transformed_start_position.result
 
   # For each direction, define:
   # - primary: axis/sign for WIDTH
@@ -64,21 +72,21 @@ locals {
   )
 
   raw_end = {
-    x = var.start_position.x + local.dx
-    y = var.start_position.y + local.dy
-    z = var.start_position.z + local.dz
+    x = local.start_position.x + local.dx
+    y = local.start_position.y + local.dy
+    z = local.start_position.z + local.dz
   }
 
   # Normalize to keep providers happy
   start_corner = {
-    x = min(var.start_position.x, local.raw_end.x)
-    y = min(var.start_position.y, local.raw_end.y)
-    z = min(var.start_position.z, local.raw_end.z)
+    x = min(local.start_position.x, local.raw_end.x)
+    y = min(local.start_position.y, local.raw_end.y)
+    z = min(local.start_position.z, local.raw_end.z)
   }
   end_corner = {
-    x = max(var.start_position.x, local.raw_end.x)
-    y = max(var.start_position.y, local.raw_end.y)
-    z = max(var.start_position.z, local.raw_end.z)
+    x = max(local.start_position.x, local.raw_end.x)
+    y = max(local.start_position.y, local.raw_end.y)
+    z = max(local.start_position.z, local.raw_end.z)
   }
 }
 

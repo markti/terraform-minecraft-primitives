@@ -1,5 +1,5 @@
 
-module "hollow" {
+module "pyramid_hollow" {
   source = "../../modules/pyramid/hollow"
 
   material       = "stone"
@@ -16,7 +16,7 @@ module "hollow" {
 module "pyramid_hollow_points" {
   source = "../../modules/vector"
 
-  for_each = module.hollow.base_position.all
+  for_each = module.pyramid_hollow.base_position.all
 
   material       = "minecraft:pink_wool"
   length         = 3
@@ -33,7 +33,7 @@ module "pyramid_hollow_points" {
 module "pyramid_hollow_peak" {
   source = "../../modules/vector"
 
-  for_each = module.hollow.peak_position.all
+  for_each = module.pyramid_hollow.peak_position.all
 
   material       = "minecraft:yellow_wool"
   length         = 3
@@ -51,7 +51,7 @@ module "pyramid_solid" {
 
   material       = "stone"
   length         = 9
-  start_position = module.hollow.base_position.corners.south_west
+  start_position = module.pyramid_hollow.base_position.corners.south_west
   transform = {
     x = 0
     y = 0
