@@ -101,6 +101,31 @@ locals {
     y = local.end_center.y + (local.a.u == "y" ? -local.u_extent : 0) + (local.a.v == "y" ? 0 : 0)
     z = local.end_center.z + (local.a.u == "z" ? -local.u_extent : 0) + (local.a.v == "z" ? 0 : 0)
   }
+
+  # Start face extents for connecting / decorating (mirrors end_*)
+  start_top = {
+    x = local.start_position.x + (local.a.u == "x" ? 0 : 0) + (local.a.v == "x" ? local.v_extent : 0)
+    y = local.start_position.y + (local.a.u == "y" ? 0 : 0) + (local.a.v == "y" ? local.v_extent : 0)
+    z = local.start_position.z + (local.a.u == "z" ? 0 : 0) + (local.a.v == "z" ? local.v_extent : 0)
+  }
+
+  start_bottom = {
+    x = local.start_position.x + (local.a.u == "x" ? 0 : 0) + (local.a.v == "x" ? -local.v_extent : 0)
+    y = local.start_position.y + (local.a.u == "y" ? 0 : 0) + (local.a.v == "y" ? -local.v_extent : 0)
+    z = local.start_position.z + (local.a.u == "z" ? 0 : 0) + (local.a.v == "z" ? -local.v_extent : 0)
+  }
+
+  start_right = {
+    x = local.start_position.x + (local.a.u == "x" ? local.u_extent : 0) + (local.a.v == "x" ? 0 : 0)
+    y = local.start_position.y + (local.a.u == "y" ? local.u_extent : 0) + (local.a.v == "y" ? 0 : 0)
+    z = local.start_position.z + (local.a.u == "z" ? local.u_extent : 0) + (local.a.v == "z" ? 0 : 0)
+  }
+
+  start_left = {
+    x = local.start_position.x + (local.a.u == "x" ? -local.u_extent : 0) + (local.a.v == "x" ? 0 : 0)
+    y = local.start_position.y + (local.a.u == "y" ? -local.u_extent : 0) + (local.a.v == "y" ? 0 : 0)
+    z = local.start_position.z + (local.a.u == "z" ? -local.u_extent : 0) + (local.a.v == "z" ? 0 : 0)
+  }
 }
 
 # One vector per perimeter point, extruded along 'direction' by depth

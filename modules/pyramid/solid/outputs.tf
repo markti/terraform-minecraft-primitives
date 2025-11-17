@@ -44,3 +44,13 @@ output "peak_position" {
     }
   }
 }
+
+output "layer_ranges" {
+  description = "Per-layer square footprint (min/max X/Z, Y, side_len) for the pyramid."
+  value       = local.layer_ranges
+}
+
+output "exterior_blocks" {
+  description = "All exterior (surface) block positions on the pyramid."
+  value       = local.exterior_blocks
+}

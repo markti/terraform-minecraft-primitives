@@ -25,7 +25,7 @@ locals {
   }
 
   # Half span (for centers). Can be fractional for even sizes.
-  base_half = (local.base_size - 1) / 2.0
+  base_half = floor((local.base_size - 1) / 2)
 
   # Side centers on base
   base_center_north = {
@@ -104,4 +104,62 @@ locals {
   # - If side_len == 1 (odd base), all four are the same point
   # - If side_len == 2 (even base), center = north_west of the 2×2
   peak_center = local.peak_north_west
+}
+
+locals {
+  # Per-layer square ranges for each Y level of the solid pyramid
+  layer_ranges = [
+    for lvl in local.solid_levels : {
+      index    = lvl.idx
+      y        = lvl.y
+      side_len = lvl.side_len
+
+      min_x = lvl.x0
+      max_x = lvl.x0 + lvl.side_len - 1
+
+      min_z = lvl.z0
+      max_z = lvl.z0 + lvl.side_len - 1
+    }
+  ]
+}
+locals {
+  exterior_blocks = flatten([
+    for lvl in local.layer_ranges : flatten([
+      # North edge
+      [
+        for x in range(lvl.min_x, lvl.max_x + 1) : {
+          x = x
+          y = lvl.y
+          z = lvl.min_z
+        }
+      ],
+
+      # South edge
+      [
+        for x in range(lvl.min_x, lvl.max_x + 1) : {
+          x = x
+          y = lvl.y
+          z = lvl.max_z
+        }
+      ],
+
+      # West edge
+      [
+        for z in range(lvl.min_z, lvl.max_z + 1) : {
+          x = lvl.min_x
+          y = lvl.y
+          z = z
+        }
+      ],
+
+      # East edge
+      [
+        for z in range(lvl.min_z, lvl.max_z + 1) : {
+          x = lvl.max_x
+          y = lvl.y
+          z = z
+        }
+      ]
+    ])
+  ])
 }

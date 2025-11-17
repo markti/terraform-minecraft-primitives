@@ -25,7 +25,7 @@ locals {
   }
 
   # Half span (for centers). Can be fractional for even sizes.
-  base_half = (local.base_size - 1) / 2.0
+  base_half = floor((local.base_size - 1) / 2)
 
   # Side centers on base
   base_center_north = {
