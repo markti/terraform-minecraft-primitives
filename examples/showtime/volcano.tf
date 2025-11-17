@@ -3,11 +3,11 @@ module "volcano" {
   source = "../../modules/pyramid/solid"
 
   material       = "minecraft:basalt"
-  length         = 21
+  length         = 31
   start_position = module.cube_5.edges["bottom_east"].center
   transform = {
     x = 1 + 20
-    y = 0
+    y = -2
     z = 1
   }
 
