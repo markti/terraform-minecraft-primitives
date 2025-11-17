@@ -1,0 +1,25 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/markti/minecraft" {
+  version     = "0.0.27"
+  constraints = "~> 0.0.22"
+  hashes = [
+    "h1:tT8W0ftI0D3Q9CI433yKP4UYDV4cx5v2HBtS2STYuII=",
+    "zh:10be329e8961889a62b62dce0607d6878664804e834c6445ddd4e8976c1a6316",
+    "zh:14b285494db08a6d509b77e0913ee1b2fa1b722ace4acbd15f42bd3f7d1921af",
+    "zh:212a2656d8188c08b7980e499df3168f5668dfd6d1d32f33759a7f44061c9fa7",
+    "zh:2543893ff2bf5e89b712c957cd01e100bdefb7015804819f08e8c95ee9d7e120",
+    "zh:4ffd110eb4875be22a6684ef6b557b362f67ac08cf9fde42b51380a677963feb",
+    "zh:61bb35b272c451c3827e122acd560b52a60c55691372e565ac72493d31edbd86",
+    "zh:82605c77bdb40db984f9221b82476bf3604e97b9cbd191318bc7055a7687c617",
+    "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
+    "zh:8b5f8b4f36e46cf0794c375b0946e371ea3d1fb8b2d6ab89620fc8e11ba69661",
+    "zh:a30cefec6686a5e4f3c14bedd43b68aea7f859017fc69e00866f45b22b802bff",
+    "zh:c1038d84fe09651cfed3a59e5e510580893492a8f64919a62a658f7786221cf0",
+    "zh:cbb9686d9f871afc0fcb9b159a40db58be6d0fa8be75e591ce6243df5daed524",
+    "zh:d5da287bb45e4e94f789ecdd680d6897f76d3bcb9c05f96f5111039764d5c57c",
+    "zh:ee9227bec17eb3d7967fe5a64ece3c343d443470cdc68fe5830b3c3588d2c86d",
+    "zh:fc09f4f0e8eeb8406abe4202c6c0a7848781e2a7901784c5e0c06942ffd77d01",
+  ]
+}

@@ -12,6 +12,19 @@ variable "start_position" {
   })
 }
 
+variable "transform" {
+  type = object({
+    x = number
+    y = number
+    z = number
+  })
+  default = {
+    x = 0
+    y = 0
+    z = 0
+  }
+}
+
 variable "diameter" {
   type        = number
   description = "Circle diameter in blocks (>= 3, integer)."

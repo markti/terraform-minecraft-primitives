@@ -1,4 +1,14 @@
+module "transformed_start_position" {
+  source = "../position"
+
+  start_position   = var.start_position
+  translate_vector = var.transform
+}
+
 locals {
+
+  start_position = module.transformed_start_position.result
+
   axis_map = {
     north = { primary = "z", u = "x", v = "y" }
     south = { primary = "z", u = "x", v = "y" }
@@ -33,9 +43,9 @@ locals {
   # ✅ correct comprehension syntax + use local.a
   perimeter_xyz = [
     for p in local.perimeter_uv : {
-      x = var.start_position.x + (local.a.u == "x" ? p.u : 0) + (local.a.v == "x" ? p.v : 0)
-      y = var.start_position.y + (local.a.u == "y" ? p.u : 0) + (local.a.v == "y" ? p.v : 0)
-      z = var.start_position.z + (local.a.u == "z" ? p.u : 0) + (local.a.v == "z" ? p.v : 0)
+      x = local.start_position.x + (local.a.u == "x" ? p.u : 0) + (local.a.v == "x" ? p.v : 0)
+      y = local.start_position.y + (local.a.u == "y" ? p.u : 0) + (local.a.v == "y" ? p.v : 0)
+      z = local.start_position.z + (local.a.u == "z" ? p.u : 0) + (local.a.v == "z" ? p.v : 0)
     }
   ]
 
