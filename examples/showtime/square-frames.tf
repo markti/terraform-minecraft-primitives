@@ -1,5 +1,5 @@
 module "frame_north" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_cyan_north.end_position
   transform = {
@@ -32,7 +32,7 @@ module "v_frame_north" {
 }
 
 module "frame_north2" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_frame_north["bottom_left"].end_position
   transform = {
@@ -65,7 +65,7 @@ module "v_frame_north2" {
 
 
 module "frame_north2_up" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_frame_north2.end_position
   transform = {
@@ -83,7 +83,7 @@ module "frame_north2_up" {
 
 
 module "frame_north2_down" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_frame_north2.end_position
   transform = {
@@ -101,7 +101,7 @@ module "frame_north2_down" {
 
 
 module "frame_south" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_cyan_south.end_position
   transform = {
@@ -132,7 +132,7 @@ module "v_frame_south" {
 }
 
 module "frame_south_east" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_frame_south.end_position
   transform = {
@@ -149,7 +149,7 @@ module "frame_south_east" {
 }
 
 module "frame_south_west" {
-  source = "../../modules/square-frame"
+  source = "../../modules/frame"
 
   start_position = module.v_frame_south.end_position
   transform = {

@@ -11,6 +11,19 @@ variable "start_position" {
   })
 }
 
+variable "transform" {
+  type = object({
+    x = number
+    y = number
+    z = number
+  })
+  default = {
+    x = 0
+    y = 0
+    z = 0
+  }
+}
+
 variable "length" {
   type        = number
   description = "Blocks along the direction (>= 1, integer)."
@@ -23,5 +36,5 @@ variable "length" {
 variable "top_cap" {
   type        = bool
   description = "Add a solid top cap (1×1 for odd, 2×2 for even)."
-  default     = false
+  default     = true
 }

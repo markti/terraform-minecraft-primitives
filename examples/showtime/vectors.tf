@@ -153,3 +153,18 @@ module "v_cyan_south" {
     z = 1
   }
 }
+
+
+module "v_cyan2" {
+  source = "../../modules/vector"
+
+  material       = "minecraft:cyan_wool"
+  start_position = module.v_cyan.end_position
+  length         = 10
+  direction      = "east"
+  transform = {
+    x = 1
+    y = 0
+    z = 0
+  }
+}

@@ -1,38 +1,57 @@
-# CENTERED, direction-agnostic pyramid
-# Assumes var.start_position is the CENTER of the base.
-locals {
-  layers = flatten([
-    for i in range(0, 100) : [
-      {
-        side = var.length - 2 * i
-        y    = var.start_position.y + i
+module "transformed_start_position" {
+  source = "../../position"
 
-        # Compute SW (minX, minZ) so the layer is centered around the given center.
-        # Using floor(side/2) gives correct odd (1-block top) and even (2x2 top) behavior.
-        start_x = var.start_position.x - floor((var.length - 2 * i) / 2)
-        start_z = var.start_position.z - floor((var.length - 2 * i) / 2)
-      }
-    ]
-    if var.length - 2 * i >= 1
-  ])
+  start_position   = var.start_position
+  translate_vector = var.transform
 }
 
-module "pyramid_layers" {
-  for_each = { for i, layer in local.layers : "layer_${i}" => layer }
+locals {
+  base_start = module.transformed_start_position.result
+  base_size  = var.length
 
-  source   = "../../cuboid"
-  material = var.material
+  # side_len(i) = length - 2*i
+  # last index i where side_len >= 1:
+  #   i_max = floor((length - 1) / 2)
+  max_index = floor((var.length - 1) / 2)
 
-  start_position = {
-    x = each.value.start_x
-    y = each.value.y
-    z = each.value.start_z
+  # All levels from base (i=0) to the peak (i=max_index)
+  #
+  # Example: length = 8
+  #   i=0 → side_len=8, y=base_y
+  #   i=1 → side_len=6, y=base_y+1
+  #   i=2 → side_len=4, y=base_y+2
+  #   i=3 → side_len=2, y=base_y+3
+  #
+  solid_levels = [
+    for i in range(0, local.max_index + 1) : {
+      idx      = i
+      side_len = var.length - 2 * i
+      y        = local.base_start.y + i
+      x0       = local.base_start.x + i
+      z0       = local.base_start.z + i
+    }
+  ]
+}
+
+#############################
+# Solid layers (filled squares)
+#############################
+resource "minecraft_fill" "solid_layers" {
+  for_each = {
+    for lvl in local.solid_levels : tostring(lvl.idx) => lvl
   }
 
-  width  = each.value.side # along +X
-  height = 1
-  depth  = each.value.side # along +Z
+  material = var.material
 
-  # Force a canonical orientation so the cuboid always grows +X/+Z.
-  direction = "south"
+  start = {
+    x = each.value.x0
+    y = each.value.y
+    z = each.value.z0
+  }
+
+  end = {
+    x = each.value.x0 + each.value.side_len - 1
+    y = each.value.y
+    z = each.value.z0 + each.value.side_len - 1
+  }
 }

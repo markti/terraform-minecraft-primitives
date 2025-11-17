@@ -8,7 +8,7 @@ locals {
 }
 
 module "up" {
-  source = "../../modules/square-frame"
+  source = "../../../modules/frame"
 
   count = 1
 

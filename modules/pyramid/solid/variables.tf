@@ -11,6 +11,19 @@ variable "start_position" {
   })
 }
 
+variable "transform" {
+  type = object({
+    x = number
+    y = number
+    z = number
+  })
+  default = {
+    x = 0
+    y = 0
+    z = 0
+  }
+}
+
 variable "length" {
   type        = number
   description = "Blocks along the direction (>= 1, integer)."
