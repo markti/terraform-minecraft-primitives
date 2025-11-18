@@ -6,8 +6,3 @@ terraform {
     }
   }
 }
-
-provider "minecraft" {
-  address  = "${var.server_address}:${var.server_port}"
-  password = var.rcon_password
-}

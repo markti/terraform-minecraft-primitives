@@ -1,4 +1,9 @@
-
+locals {
+  #castle_material = "cobblestone"
+  #castle_material = "stone_bricks"
+  #castle_material = "polished_andesite"
+  castle_material = "deepslate_bricks"
+}
 
 module "castle_turret1" {
   source = "../../modules/tube"
@@ -9,7 +14,7 @@ module "castle_turret1" {
     y = 2
     z = 35
   }
-  material  = "stone"
+  material  = local.castle_material
   direction = "up"
   diameter  = 10
   depth     = 12
@@ -29,7 +34,7 @@ module "south_wall" {
     y = 0
     z = -2
   }
-  material  = "stone"
+  material  = local.castle_material
   direction = "east"
 }
 
@@ -42,7 +47,7 @@ module "castle_turret2" {
     y = 0
     z = 0
   }
-  material  = "stone"
+  material  = local.castle_material
   direction = "up"
   diameter  = 10
   depth     = 12
@@ -64,7 +69,7 @@ module "east_wall" {
     z = 1 # pull slightly north to line up visually
   }
 
-  material  = "stone"
+  material  = local.castle_material
   direction = "south"
 }
 
@@ -83,7 +88,7 @@ module "west_wall" {
     z = 1 # pull slightly north to line up visually
   }
 
-  material  = "stone"
+  material  = local.castle_material
   direction = "south"
 }
 
@@ -98,7 +103,7 @@ module "castle_turret3" {
     z = 5
   }
 
-  material  = "stone"
+  material  = local.castle_material
   direction = "up"
   diameter  = 10
   depth     = 14
@@ -115,7 +120,7 @@ module "castle_turret4" {
     z = 5
   }
 
-  material  = "stone"
+  material  = local.castle_material
   direction = "up"
   diameter  = 10
   depth     = 14
@@ -135,7 +140,7 @@ module "north_wall" {
     y = 0
     z = -2
   }
-  material  = "stone"
+  material  = local.castle_material
   direction = "east"
 }
 
@@ -173,4 +178,6 @@ module "south_gate_hole" {
   width  = local.south_gate_width  # along east (X)
   height = local.south_gate_height # up (Y)
   depth  = local.south_gate_depth  # back (Z), clears wall thickness and a bit more
+
+  depends_on = [module.south_wall]
 }

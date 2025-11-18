@@ -1,7 +1,7 @@
 module "cube_3" {
   source = "../../modules/cuboid"
 
-  material  = "stone"
+  material  = "diamond_block"
   direction = "east"
   transform = {
     x = 1 + 2
@@ -19,7 +19,7 @@ module "cube_3" {
 module "cube_4" {
   source = "../../modules/cuboid"
 
-  material  = "stone"
+  material  = "gold_block"
   direction = "east"
   transform = {
     x = 1 + 1
@@ -37,7 +37,7 @@ module "cube_4" {
 module "cube_5" {
   source = "../../modules/cuboid"
 
-  material  = "stone"
+  material  = "iron_block"
   direction = "east"
   transform = {
     x = 1 + 1
