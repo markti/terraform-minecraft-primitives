@@ -1,8 +1,17 @@
 locals {
-  #castle_material = "cobblestone"
-  #castle_material = "stone_bricks"
-  #castle_material = "polished_andesite"
-  castle_material = "deepslate_bricks"
+  #castle_material      = "cobblestone"
+  #turret_roof_material = "dark_oak_planks"
+
+  #castle_material      = "stone_bricks"
+  #turret_roof_material = "spruce_planks"
+
+  #castle_material      = "polished_andesite"
+  #turret_roof_material = "spruce_planks"
+
+  castle_material      = "deepslate_bricks"
+  turret_roof_material = "mangrove_planks"
+
+  turret_diameter = 10
 }
 
 module "castle_turret1" {
@@ -16,7 +25,7 @@ module "castle_turret1" {
   }
   material  = local.castle_material
   direction = "up"
-  diameter  = 10
+  diameter  = local.turret_diameter
   depth     = 12
 
 }
@@ -49,7 +58,7 @@ module "castle_turret2" {
   }
   material  = local.castle_material
   direction = "up"
-  diameter  = 10
+  diameter  = local.turret_diameter
   depth     = 12
 
 }
@@ -105,7 +114,7 @@ module "castle_turret3" {
 
   material  = local.castle_material
   direction = "up"
-  diameter  = 10
+  diameter  = local.turret_diameter
   depth     = 14
 }
 
@@ -122,7 +131,7 @@ module "castle_turret4" {
 
   material  = local.castle_material
   direction = "up"
-  diameter  = 10
+  diameter  = local.turret_diameter
   depth     = 14
 }
 
@@ -166,7 +175,7 @@ locals {
     z = local.south_wall_base.z     # front face of wall (south side)
   }
 }
-
+/*
 module "south_gate_hole" {
   source = "../../modules/cuboid"
 
@@ -180,4 +189,78 @@ module "south_gate_hole" {
   depth  = local.south_gate_depth  # back (Z), clears wall thickness and a bit more
 
   depends_on = [module.south_wall]
+}
+*/
+locals {
+  turret_roof_length = local.turret_diameter + 2 # slightly larger than 10-wide turret
+  turret_roof_half   = floor((local.turret_roof_length - 1) / 2)
+}
+
+module "castle_turret1_roof" {
+  source = "../../modules/pyramid/hollow"
+
+  material = local.turret_roof_material
+  length   = local.turret_roof_length
+  top_cap  = true
+
+  # Center the pyramid over the turret top
+  start_position = module.castle_turret1.end_center
+
+  transform = {
+    x = -local.turret_roof_half
+    y = 1 # same Y as turret top; change to 1 if you want it to float one block up
+    z = -local.turret_roof_half
+  }
+}
+
+module "castle_turret2_roof" {
+  source = "../../modules/pyramid/hollow"
+
+  material = local.turret_roof_material
+  length   = local.turret_roof_length
+  top_cap  = true
+
+  # Center the pyramid over the turret top
+  start_position = module.castle_turret2.end_center
+
+  transform = {
+    x = -local.turret_roof_half
+    y = 1 # same Y as turret top; change to 1 if you want it to float one block up
+    z = -local.turret_roof_half
+  }
+}
+
+module "castle_turret3_roof" {
+  source = "../../modules/pyramid/hollow"
+
+  material = local.turret_roof_material
+  length   = local.turret_roof_length
+  top_cap  = true
+
+  # Center the pyramid over the turret top
+  start_position = module.castle_turret3.end_center
+
+  transform = {
+    x = -local.turret_roof_half
+    y = 1 # same Y as turret top; change to 1 if you want it to float one block up
+    z = -local.turret_roof_half
+  }
+}
+
+
+module "castle_turret4_roof" {
+  source = "../../modules/pyramid/hollow"
+
+  material = local.turret_roof_material
+  length   = local.turret_roof_length
+  top_cap  = true
+
+  # Center the pyramid over the turret top
+  start_position = module.castle_turret4.end_center
+
+  transform = {
+    x = -local.turret_roof_half
+    y = 1 # same Y as turret top; change to 1 if you want it to float one block up
+    z = -local.turret_roof_half
+  }
 }

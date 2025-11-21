@@ -19,17 +19,19 @@ locals {
   }
 
   # 3x3 grid around the center
-  baby_zombie_horde_positions = {
+  baby_zombie_horde_position = {
     x = local.castle_center.x
     y = local.castle_center.y + 4
     z = local.castle_center.z
   }
+  pink_sheep_location = local.baby_zombie_horde_position
 
 }
 
+
 resource "minecraft_zombie" "baby_zombie_horde" {
 
-  count = 0
+  count = 100
 
   is_baby              = true
   can_break_doors      = true
@@ -37,15 +39,5 @@ resource "minecraft_zombie" "baby_zombie_horde" {
   persistence_required = true
   health               = 20.0
 
-  position = local.baby_zombie_horde_positions
-}
-
-
-resource "minecraft_sheep" "flock" {
-
-  position = local.baby_zombie_horde_positions
-
-  count = 100
-
-  color = "pink"
+  position = local.baby_zombie_horde_position
 }

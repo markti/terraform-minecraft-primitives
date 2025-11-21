@@ -21,6 +21,8 @@ resource "minecraft_block" "lava_peak" {
     y = module.volcano.peak_position.center.y
     z = module.volcano.peak_position.center.z
   }
+
+  depends_on = [module.volcano]
 }
 
 /*
