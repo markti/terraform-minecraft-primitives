@@ -93,9 +93,9 @@ locals {
   }
   # how far to move from start face to end face
   primary_offset = {
-    x = (local.a.primary.axis == "x" ? local.a.primary.sign * (var.length - 1) : 0)
-    y = (local.a.primary.axis == "y" ? local.a.primary.sign * (var.length - 1) : 0)
-    z = (local.a.primary.axis == "z" ? local.a.primary.sign * (var.length - 1) : 0)
+    x = (local.a.primary.axis == "x" ? local.a.primary.sign * (var.depth - 1) : 0)
+    y = (local.a.primary.axis == "y" ? local.a.primary.sign * (var.depth - 1) : 0)
+    z = (local.a.primary.axis == "z" ? local.a.primary.sign * (var.depth - 1) : 0)
   }
 
   # end face corners (start corners + primary extrusion)
@@ -154,7 +154,7 @@ locals {
   # ─────────────────────────────────────────────────────────────
 
   # scalar mid distance from start (geometric midpoint)
-  mid_t = (var.length - 1) / 2.0
+  mid_t = (var.depth - 1) / 2.0
 
   mid_primary_offset = {
     x = (local.a.primary.axis == "x" ? local.a.primary.sign * local.mid_t : 0)
@@ -234,7 +234,7 @@ module "frame_top" {
   start_position = local.c0H # top edge: +height-1 along cy
 
   # Along shaft
-  width = var.length # along primary axis
+  width = var.depth # along primary axis
 
   # Across the opening (cx axis)
   depth = var.width # full width of frame
@@ -250,7 +250,7 @@ module "frame_bottom" {
   direction      = var.direction
   start_position = local.c00 # bottom edge
 
-  width  = var.length
+  width  = var.depth
   depth  = var.width
   height = 1
 }
@@ -263,7 +263,7 @@ module "frame_left" {
   start_position = local.c00 # left edge
 
   # Along shaft
-  width = var.length
+  width = var.depth
 
   # Thickness on cx axis (1 block wide)
   depth = 1
@@ -279,7 +279,7 @@ module "frame_right" {
   direction      = var.direction
   start_position = local.cW0 # right edge: +width-1 along cx
 
-  width  = var.length
+  width  = var.depth
   depth  = 1
   height = var.height
 }

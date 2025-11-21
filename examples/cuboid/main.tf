@@ -1,125 +1,71 @@
 
-locals {
-  start_position = {
-    x = -30
-    y = 68
-    z = -230
-  }
-}
-
-module "up" {
+module "diamond" {
   source = "../../modules/cuboid"
 
-  count = 1
+  material  = "diamond_block"
+  direction = "east"
+  width     = 3
+  depth     = 3
+  height    = 3
 
-  start_position = local.start_position
-  material       = "stone"
-  direction      = "up"
-  width          = 10
-  depth          = 2
-  height         = 2
-
-}
-
-module "cube_bottom" {
-  source    = "../../modules/cuboid"
-  material  = "minecraft:stone"
-  direction = "down"
-
-  # same X,Z as pillar; Y starts one block below the base
   start_position = {
-    x = local.start_position.x
-    y = local.start_position.y - 1
-    z = local.start_position.z
+    x = 486
+    y = 64
+    z = 142
   }
 
-  width  = 2 # along -Y (down)
-  depth  = 2 # along +X
-  height = 2 # along +Z
 }
 
-# North (Z - 2)
-module "pos_north" {
-  source         = "../../modules/position"
-  start_position = local.start_position
-  translate_vector = {
-    x = 0
-    y = 0
-    z = -1
-  }
-}
+module "gold" {
+  source = "../../modules/cuboid"
 
-# South (Z + 2)
-module "pos_south" {
-  source         = "../../modules/position"
-  start_position = local.start_position
-  translate_vector = {
-    x = 0
-    y = 0
-    z = 2
-  }
-}
-
-# West (X - 2)
-module "pos_west" {
-  source         = "../../modules/position"
-  start_position = local.start_position
-  translate_vector = {
-    x = -1
-    y = 0
-    z = 0
-  }
-}
-
-# East (X + 2)
-module "pos_east" {
-  source         = "../../modules/position"
-  start_position = local.start_position
-  translate_vector = {
-    x = 2
-    y = 0
-    z = 0
-  }
-}
-
-# --- Four 2x2x2 cubes, one on each side ---
-
-module "cube_north" {
-  source         = "../../modules/cuboid"
-  start_position = module.pos_north.result
-  material       = "minecraft:stone"
-  direction      = "north"
-  width          = 2 # along -Z
-  depth          = 2 # along +X
-  height         = 2 # along +Y
-}
-
-module "cube_south" {
-  source         = "../../modules/cuboid"
-  start_position = module.pos_south.result
-  material       = "minecraft:stone"
-  direction      = "south"
-  width          = 2 # along +Z
-  depth          = 2 # along +X
-  height         = 2 # along +Y
-}
-
-module "cube_west" {
-  source         = "../../modules/cuboid"
-  start_position = module.pos_west.result
-  material       = "minecraft:stone"
-  direction      = "west"
-  width          = 2 # along -X
-  depth          = 2 # along +Z
-  height         = 2 # along +Y
-}
-
-module "cube_east" {
-  source         = "../../modules/cuboid"
-  start_position = module.pos_east.result
-  material       = "minecraft:stone"
+  material       = "gold_block"
   direction      = "east"
-  width          = 2 # along +X
-  depth          = 2 # along +Z
-  height         = 2 # along +Y
+  width          = 4
+  depth          = 4
+  height         = 4
+  start_position = module.diamond.edges["bottom_east"].center
+
+  transform = {
+    x = 1 + 1
+    y = 0
+    z = 0
+  }
+
+}
+
+module "iron" {
+  source = "../../modules/cuboid"
+
+  material       = "iron_block"
+  direction      = "east"
+  width          = 5
+  depth          = 5
+  height         = 5
+  start_position = module.gold.edges["bottom_east"].center
+
+  transform = {
+    x = 1 + 1
+    y = 0
+    z = 0
+  }
+
+}
+
+module "copper" {
+  source = "../../modules/cuboid"
+
+  material       = "copper_block"
+  direction      = "east"
+  width          = 6
+  depth          = 6
+  height         = 6
+  start_position = module.iron.edges["bottom_east"].center
+
+  transform = {
+    x = 1 + 1
+    y = 0
+    z = 0
+  }
+
 }

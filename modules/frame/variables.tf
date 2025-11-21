@@ -43,11 +43,11 @@ variable "height" {
   }
 }
 
-variable "length" {
+variable "depth" {
   type        = number
   description = "Number of blocks to fill along the direction (>= 1)."
   validation {
-    condition     = var.length >= 1 && floor(var.length) == var.length
+    condition     = var.depth >= 1 && floor(var.depth) == var.depth
     error_message = "Length must be an integer >= 1."
   }
 }
