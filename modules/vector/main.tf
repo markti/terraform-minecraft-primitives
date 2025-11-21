@@ -1,4 +1,12 @@
+module "transformed_start_position" {
+  source = "../position"
+
+  start_position   = var.start_position
+  translate_vector = var.transform
+}
+
 locals {
+  start_position = module.transformed_start_position.result
   # Unit step vectors per direction (right-handed: +x east, +y up, +z south)
   dir_to_delta = {
     north = { x = 0, y = 0, z = -1 }
@@ -13,9 +21,9 @@ locals {
 
   # Inclusive end: start + step * (length - 1)
   end_position = {
-    x = var.start_position.x + local.step.x * (var.length - 1)
-    y = var.start_position.y + local.step.y * (var.length - 1)
-    z = var.start_position.z + local.step.z * (var.length - 1)
+    x = local.start_position.x + local.step.x * (var.length - 1)
+    y = local.start_position.y + local.step.y * (var.length - 1)
+    z = local.start_position.z + local.step.z * (var.length - 1)
   }
 }
 
@@ -23,9 +31,9 @@ resource "minecraft_fill" "main" {
   material = var.material
 
   start = {
-    x = var.start_position.x
-    y = var.start_position.y
-    z = var.start_position.z
+    x = local.start_position.x
+    y = local.start_position.y
+    z = local.start_position.z
   }
 
   end = {

@@ -3,3 +3,4 @@ locals {
     "north", "south", "east", "west", "up", "down"
   ]
 }
+  

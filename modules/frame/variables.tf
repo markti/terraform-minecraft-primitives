@@ -12,6 +12,19 @@ variable "start_position" {
   })
 }
 
+variable "transform" {
+  type = object({
+    x = number
+    y = number
+    z = number
+  })
+  default = {
+    x = 0
+    y = 0
+    z = 0
+  }
+}
+
 variable "width" {
   type        = number
   description = "Blocks along the direction (>= 1, integer)."
@@ -21,20 +34,20 @@ variable "width" {
   }
 }
 
-variable "depth" {
+variable "height" {
   type        = number
   description = "Blocks along the perpendicular horizontal axis (>= 1, integer)."
   validation {
-    condition     = var.depth >= 1 && floor(var.depth) == var.depth
+    condition     = var.height >= 1 && floor(var.height) == var.height
     error_message = "Length must be an integer >= 1."
   }
 }
 
-variable "height" {
+variable "length" {
   type        = number
   description = "Number of blocks to fill along the direction (>= 1)."
   validation {
-    condition     = var.height >= 1 && floor(var.height) == var.height
+    condition     = var.length >= 1 && floor(var.length) == var.length
     error_message = "Length must be an integer >= 1."
   }
 }
