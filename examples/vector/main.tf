@@ -5,10 +5,11 @@ module "white" {
   material  = "minecraft:white_wool"
   length    = 5
   direction = "up"
+
   start_position = {
-    x = 486
-    y = 64
-    z = 142
+    x = 624
+    y = 69
+    z = 254
   }
 }
 
@@ -44,7 +45,7 @@ module "red" {
 module "green" {
   source = "../../modules/vector"
 
-  material       = "minecraft:green_wool"
+  material       = "minecraft:lime_wool"
   length         = 3
   direction      = "north"
   start_position = module.white.end_position

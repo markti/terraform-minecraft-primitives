@@ -9,9 +9,9 @@ module "diamond" {
   height    = 3
 
   start_position = {
-    x = 486
-    y = 64
-    z = 142
+    x = 624
+    y = 69
+    z = 279
   }
 
 }

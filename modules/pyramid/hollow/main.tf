@@ -89,7 +89,7 @@ module "frame_layers" {
 
   # We just want a single "slice" (a ring for this layer),
   # so treat the frame as running "up" by 1.
-  length    = 1
+  depth     = 1
   direction = "up"
 }
 

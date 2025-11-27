@@ -31,7 +31,7 @@ locals {
 
 resource "minecraft_zombie" "baby_zombie_horde" {
 
-  count = 100
+  count = 0
 
   is_baby              = true
   can_break_doors      = true

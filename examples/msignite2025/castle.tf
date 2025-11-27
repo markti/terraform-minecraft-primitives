@@ -35,7 +35,7 @@ module "south_wall" {
 
   height = 8
   width  = 5
-  length = 30
+  depth  = 30
 
   start_position = module.castle_turret1.start_position.right
   transform = {
@@ -68,7 +68,7 @@ module "east_wall" {
 
   height = 8
   width  = 5
-  length = 30
+  depth  = 30
 
   # Attach to the east side of turret2 and run north
   start_position = module.castle_turret2.start_position.top
@@ -87,7 +87,7 @@ module "west_wall" {
 
   height = 8
   width  = 5
-  length = 30
+  depth  = 30
 
   # Attach to the east side of turret2 and run north
   start_position = module.castle_turret1.start_position.top
@@ -141,7 +141,7 @@ module "north_wall" {
 
   height = 8
   width  = 5
-  length = 30
+  depth  = 30
 
   start_position = module.castle_turret4.start_position.right
   transform = {

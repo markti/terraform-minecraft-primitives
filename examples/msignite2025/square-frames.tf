@@ -9,7 +9,7 @@ module "frame_north" {
   }
   material  = "stone"
   direction = "north"
-  length    = 5
+  depth     = 5
   width     = 5
   height    = 7
 
@@ -34,7 +34,7 @@ module "v_frame_north" {
 module "frame_north2" {
   source = "../../modules/frame"
 
-  start_position = module.v_frame_north["bottom_left"].end_position
+  start_position = module.v_frame_north["bottom"].end_position
   transform = {
     x = 0
     y = 0
@@ -42,7 +42,7 @@ module "frame_north2" {
   }
   material  = "stone"
   direction = "north"
-  length    = 5
+  depth     = 5
   width     = 5
   height    = 7
 
@@ -75,7 +75,7 @@ module "frame_north2_up" {
   }
   material  = "stone"
   direction = "up"
-  length    = 5
+  depth     = 5
   width     = 5
   height    = 7
 
@@ -93,7 +93,7 @@ module "frame_north2_down" {
   }
   material  = "stone"
   direction = "down"
-  length    = 5
+  depth     = 5
   width     = 5
   height    = 7
 
@@ -111,7 +111,7 @@ module "frame_south" {
   }
   material  = "stone"
   direction = "south"
-  length    = 5
+  depth     = 5
   width     = 5
   height    = 7
 
@@ -142,7 +142,7 @@ module "frame_south_east" {
   }
   material  = "stone"
   direction = "east"
-  length    = 3
+  depth     = 3
   width     = 5
   height    = 7
 
@@ -159,7 +159,7 @@ module "frame_south_west" {
   }
   material  = "stone"
   direction = "west"
-  length    = 3
+  depth     = 3
   width     = 5
   height    = 7
 
