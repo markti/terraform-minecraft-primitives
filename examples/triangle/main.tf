@@ -4,13 +4,18 @@ locals {
     B = "white_wool"
     C = "blue_wool"
   }
+  direction_materials = {
+    north = "copper_block"
+    south = "iron_block"
+    east  = "gold_block"
+    west  = "diamond_block"
+  }
 }
-
 
 module "east" {
   source = "../../modules/triangle"
 
-  material  = "diamond_block"
+  material  = local.direction_materials["east"]
   direction = "east"
   height    = 7
   width     = 7
@@ -50,7 +55,7 @@ module "east_vectors" {
 module "west" {
   source = "../../modules/triangle"
 
-  material  = "diamond_block"
+  material  = local.direction_materials["west"]
   direction = "west"
   height    = 7
   width     = 7
@@ -91,7 +96,7 @@ module "west_vectors" {
 module "north" {
   source = "../../modules/triangle"
 
-  material  = "diamond_block"
+  material  = local.direction_materials["north"]
   direction = "north"
   height    = 7
   width     = 7
@@ -132,7 +137,7 @@ module "north_vectors" {
 module "south" {
   source = "../../modules/triangle"
 
-  material  = "diamond_block"
+  material  = local.direction_materials["south"]
   direction = "south"
   height    = 7
   width     = 7
@@ -167,5 +172,142 @@ module "south_vectors" {
     x = 0
     y = 1
     z = 0
+  }
+}
+
+
+module "xy_south" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["south"]
+  direction = "south"
+  plane     = "xy"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["B"].end_position
+  transform = {
+    x = 1
+    y = 4
+    z = 0
+  }
+}
+module "xy_north" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["north"]
+  direction = "north"
+  plane     = "xy"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["B"].end_position
+  transform = {
+    x = 0
+    y = 5
+    z = 0
+  }
+}
+
+module "xy_east" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["east"]
+  direction = "east"
+  plane     = "xy"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["B"].end_position
+  transform = {
+    x = 1
+    y = 5
+    z = 0
+  }
+}
+
+module "xy_west" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["west"]
+  direction = "west"
+  plane     = "xy"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["B"].end_position
+  transform = {
+    x = 0
+    y = 4
+    z = 0
+  }
+}
+
+module "yz_south" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["south"]
+  direction = "south"
+  plane     = "yz"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["C"].end_position
+  transform = {
+    x = -1
+    y = 1
+    z = 1
+  }
+}
+
+module "yz_north" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["north"]
+  direction = "north"
+  plane     = "yz"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["C"].end_position
+  transform = {
+    x = -1
+    y = 0
+    z = -1
+  }
+}
+
+module "yz_east" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["east"]
+  direction = "east"
+  plane     = "yz"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["C"].end_position
+  transform = {
+    x = -1
+    y = 1
+    z = -1
+  }
+}
+
+
+module "yz_west" {
+  source = "../../modules/triangle"
+
+  material  = local.direction_materials["west"]
+  direction = "west"
+  plane     = "yz"
+  height    = 4
+  width     = 4
+
+  start_position = module.south_vectors["C"].end_position
+  transform = {
+    x = -1
+    y = 0
+    z = 1
   }
 }

@@ -1,12 +1,20 @@
 
 locals {
+
+  direction_materials = {
+    north = "copper_block"
+    south = "iron_block"
+    east  = "gold_block"
+    west  = "diamond_block"
+  }
+
   n = 7
   s = local.n - 1
 
   # Pick the SOUTH-WEST corner of the 2x2 "B hub"
   hub_B_sw = {
     x = 490
-    y = 83
+    y = 71
     z = 252
   }
 
@@ -40,7 +48,7 @@ module "triangles" {
   for_each = local.A_from_B
   source   = "../../modules/triangle"
 
-  material       = "diamond_block"
+  material       = local.direction_materials[each.key]
   direction      = each.key
   width          = local.n
   height         = local.n

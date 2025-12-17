@@ -1,8 +1,8 @@
 
-module "diamond" {
+module "circle" {
   source = "../../modules/circle"
 
-  material  = "diamond_block"
+  material  = "stone"
   direction = "east"
   diameter  = 7
 
@@ -14,10 +14,10 @@ module "diamond" {
 
 }
 
-module "diamond_end_connectors" {
+module "circle_end_connectors" {
   source = "../../modules/vector"
 
-  for_each = module.diamond.start_position.all
+  for_each = module.circle.start_position.all
 
   material       = "minecraft:cyan_wool"
   length         = 3
@@ -31,10 +31,10 @@ module "diamond_end_connectors" {
   }
 }
 
-module "diamond_start_connectors" {
+module "circle_start_connectors" {
   source = "../../modules/vector"
 
-  for_each = module.diamond.start_position.all
+  for_each = module.circle.start_position.all
 
   material       = "minecraft:magenta_wool"
   length         = 3

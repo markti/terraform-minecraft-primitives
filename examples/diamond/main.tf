@@ -2,14 +2,14 @@
 module "diamond" {
   source = "../../modules/diamond"
 
-  material  = "diamond_block"
+  material  = "stone"
   direction = "east"
   height    = 7
   width     = 7
 
   start_position = {
     x = 489
-    y = 83
+    y = 78
     z = 273
   }
 
@@ -18,7 +18,7 @@ module "diamond" {
 module "diamond2" {
   source = "../../modules/diamond"
 
-  material  = "diamond_block"
+  material  = "stone"
   direction = "east"
   height    = 13
   width     = 13
@@ -28,6 +28,6 @@ module "diamond2" {
   transform = {
     x = 10
     y = 0
-    z = 0
+    z = -5
   }
 }
