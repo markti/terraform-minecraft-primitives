@@ -144,7 +144,7 @@ module "south" {
     z = -7
   }
 }
-/*
+
 locals {
   south_points = {
     A = module.south.points.A
@@ -168,4 +168,4 @@ module "south_vectors" {
     y = 1
     z = 0
   }
-}*/
+}
