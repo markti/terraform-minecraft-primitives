@@ -4,7 +4,7 @@ variable "material" {
 }
 
 variable "start_position" {
-  description = "Anchor corner of the triangle (right angle corner)."
+  description = "Anchor corner of the triangle (right angle corner A)."
   type = object({
     x = number
     y = number
@@ -41,7 +41,7 @@ variable "height" {
 
 variable "direction" {
   type        = string
-  description = "Which way the triangle points in the plane."
+  description = "Orientation in the plane."
   validation {
     condition     = contains(["north", "south", "east", "west"], var.direction)
     error_message = "direction must be one of: north, south, east, west."
